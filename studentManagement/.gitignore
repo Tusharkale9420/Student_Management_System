@@ -1,0 +1,21 @@
+# IntelliJ IDEA files
+.idea/
+*.iml
+
+# Maven build files
+target/
+
+# Spring Boot generated help file
+HELP.md
+
+frontend/node_modules/
+frontend/dist/
+backend/target/
+
+.env
+.env.*
+!.env.example
+
+.idea/
+*.iml
+*.log
