@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React
 student-frontend/node_modules/
 student-frontend/dist/
@@ -16,3 +17,14 @@ studentManagement/target/
 
 # Logs
 *.log
+=======
+# IntelliJ IDEA files
+.idea/
+*.iml
+
+# Maven build files
+target/
+
+# Spring Boot generated help file
+HELP.md
+>>>>>>> b492ea54746d4d8ae8c7058fd5e2321a1806c0f2
