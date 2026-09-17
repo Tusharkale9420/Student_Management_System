@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 function Login() {
 
@@ -26,27 +27,12 @@ function Login() {
 
         try {
 
-            const response = await fetch(
-                "http://localhost:8081/auth/login",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
-                }
-            );
+            const response = await api.post("/auth/login", {
+                email: email,
+                password: password
+            });
 
-            if (!response.ok) {
-                setError("Invalid email or password.");
-                setLoading(false);
-                return;
-            }
-
-            const data = await response.json();
+            const data = response.data;
 
             // Store JWT token
             localStorage.setItem("token", data.token);
@@ -64,9 +50,13 @@ function Login() {
 
             console.error("Login error:", error);
 
-            setError(
-                "Unable to connect to server. Please make sure backend is running."
-            );
+            if (error.response?.status === 401) {
+                setError("Invalid email or password.");
+            } else {
+                setError(
+                    "Unable to connect to server. Please make sure backend is running."
+                );
+            }
 
         } finally {
 
