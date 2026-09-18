@@ -106,7 +106,10 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of(
+                        "http://localhost:5173",
+                        "https://student-management-system-mex3332mg-bro-code21.vercel.app"
+                )
         );
 
         configuration.setAllowedMethods(
