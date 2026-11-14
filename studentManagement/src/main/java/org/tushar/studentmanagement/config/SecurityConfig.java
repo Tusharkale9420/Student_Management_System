@@ -1,3 +1,4 @@
+
 package org.tushar.studentmanagement.config;
 
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,6 @@ public class SecurityConfig {
 
     public SecurityConfig(
             JwtAuthenticationFilter jwtAuthenticationFilter) {
-
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
@@ -53,15 +53,15 @@ public class SecurityConfig {
                                 "/**"
                         ).permitAll()
 
-                        // Login does not require JWT
+                        // Public APIs: No JWT required
                         .requestMatchers(
+                                "/health",
                                 "/auth/login",
                                 "/auth/register",
                                 "/error"
                         ).permitAll()
-                        // =========================
+
                         // STUDENT APIs
-                        // =========================
 
                         // ADMIN and USER can view
                         .requestMatchers(
@@ -73,19 +73,19 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/students/**"
-                        ).hasAnyRole("ADMIN","USER")
+                        ).hasAnyRole("ADMIN", "USER")
 
                         // ADMIN and USER can update temporarily
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/students/**"
-                        ).hasAnyRole("ADMIN","USER")
+                        ).hasAnyRole("ADMIN", "USER")
 
-                        // ADMIN and USER can delete temporarily
+                        // Only ADMIN can delete
                         .requestMatchers(
                                 HttpMethod.DELETE,
                                 "/students/**"
-                        ).hasAnyRole("ADMIN")
+                        ).hasRole("ADMIN")
 
                         // Everything else requires authentication
                         .anyRequest().authenticated()
