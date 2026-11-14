@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const API_URL = window.location.hostname === "localhost"
+    ? "http://localhost:10000"
+    : "https://student-management-system-7jjx.onrender.com";
+
 const api = axios.create({
-    baseURL: "https://student-management-system-7jjx.onrender.com"
+    baseURL: API_URL
 });
 
 // Add JWT token to every request
@@ -20,7 +24,6 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
 
 // Handle authentication errors
 api.interceptors.response.use(
